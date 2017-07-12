@@ -3,12 +3,13 @@ import { StyleSheet, Text, View, Button } from "react-native";
 // import { Container, Content, Button } from "native-base";
 
 class MainScreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       top: false,
       middle: false,
-      bottom: false
+      bottom: false,
+      answerKey: []
     };
     this.goToRoute = this.goToRoute.bind(this);
   }
@@ -28,7 +29,8 @@ class MainScreen extends Component {
           this.setState({
             top: true,
             middle: false,
-            bottom: false
+            bottom: false,
+            answerKey: [...this.state.answerKey, selector]
           });
         }
       }, 2000);
@@ -37,7 +39,8 @@ class MainScreen extends Component {
           this.setState({
             top: false,
             middle: true,
-            bottom: false
+            bottom: false,
+            answerKey: [...this.state.answerKey, selector]
           });
         }
       }, 2000);
@@ -46,7 +49,8 @@ class MainScreen extends Component {
           this.setState({
             top: false,
             middle: false,
-            bottom: true
+            bottom: true,
+            answerKey: [...this.state.answerKey, selector]
           });
         }
       }, 2000);
@@ -55,6 +59,7 @@ class MainScreen extends Component {
 
   goToRoute(routeName) {
     this.props.navigator.push(routeName);
+    console.log(this.state.answerKey)
   }
 
   render() {
@@ -65,7 +70,7 @@ class MainScreen extends Component {
           <View style={{ flex: 1, backgroundColor: "skyblue" }} />
           <View style={{ flex: 1, backgroundColor: "steelblue" }} />
           <Button
-            onPress={() => this.startTheGame()}
+            onPress={() => this.goToRoute("userTurn")}
             block
             info
             title="You're Turn"
@@ -79,7 +84,7 @@ class MainScreen extends Component {
           <View style={{ flex: 1, backgroundColor: "black" }} />
           <View style={{ flex: 1, backgroundColor: "steelblue" }} />
           <Button
-            onPress={() => this.startTheGame()}
+            onPress={() => this.goToRoute("userTurn")}
             block
             info
             title="You're Turn"
@@ -93,7 +98,7 @@ class MainScreen extends Component {
           <View style={{ flex: 1, backgroundColor: "skyblue" }} />
           <View style={{ flex: 1, backgroundColor: "black" }} />
           <Button
-            onPress={() => this.startTheGame()}
+            onPress={() => this.goToRoute("userTurn")}
             block
             info
             title="You're Turn"
@@ -108,14 +113,29 @@ class MainScreen extends Component {
         <View style={{ flex: 1, backgroundColor: "skyblue" }} />
         <View style={{ flex: 1, backgroundColor: "steelblue" }} />
         <Button
-          onPress={() => this.startTheGame()}
+          onPress={() => this.goToRoute("userTurn")}
           block
           info
           title="You're Turn"
         />
+        
       </View>
     );
   }
 }
 
 export default MainScreen;
+
+
+//Fill up an array with the selector for each iteration IE [0,1,1,2,2]
+//Then When its the users turn each div will have the same number attached to it as the selector
+//top will be 0, middle will be 1, bottom will be 2
+//Have a counter in the state set to 0
+// check the number corresponding to the div IE 0 for the top div
+// to the answerKey[counter]
+//if its the same do nothing, if its different notify the user they lost
+//increment the counter
+//if counter is greater than array length than that means the user has gotten them all right
+// show a YOU WON!!! notification at this time.
+
+//ask how to pass state to other component without rendering it

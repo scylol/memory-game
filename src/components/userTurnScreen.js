@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 // import { Container, Content, Button } from "native-base";
 
+
+
 class UserTurnScreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.goToRoute = this.goToRoute.bind(this);
   }
@@ -19,18 +21,23 @@ class UserTurnScreen extends Component {
     this.props.navigator.push(routeName);
   }
 
+  onPressButton() {
+    console.log("button pressed");
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, backgroundColor: "powderblue" }} />
-        <View style={{ flex: 1, backgroundColor: "skyblue" }} />
-        <View style={{ flex: 1, backgroundColor: "steelblue" }} />
+        <TouchableOpacity style={{ flex: 1, backgroundColor: "powderblue" }} onPress={this.onPressButton} />
+        <TouchableOpacity style={{ flex: 1, backgroundColor: "skyblue" }} onPress={this.onPressButton} />
+        <TouchableOpacity style={{ flex: 1, backgroundColor: "steelblue" }} onPress={this.onPressButton} />
         <Button
           onPress={() => this.goToRoute("home")}
           block
           info
           title="Home"
         />
+        
       </View>
     );
   }

@@ -3,8 +3,8 @@ import { StyleSheet, Text, View, Button } from "react-native";
 // import { Container, Content, Button } from "native-base";
 
 class HomeScreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.goToRoute = this.goToRoute.bind(this);
   }
