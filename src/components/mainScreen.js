@@ -58,7 +58,7 @@ class MainScreen extends Component {
   }
 
   goToRoute(routeName) {
-    this.props.navigator.push(routeName);
+    this.props.navigator.push(routeName, {answerKey: this.state.answerKey});
     console.log(this.state.answerKey)
   }
 

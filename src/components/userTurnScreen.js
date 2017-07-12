@@ -30,6 +30,8 @@ class UserTurnScreen extends Component {
     console.log("top pressed");
     let i = 0;
     console.log(this.state.index)
+    //IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //this.props.route.params.answerKey
     if (i !== this.state.testArray[this.state.index]) {
       this.setState({ failed: true });
     }
