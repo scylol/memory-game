@@ -109,9 +109,9 @@ class MainScreen extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, backgroundColor: "powderblue" }} />
-        <View style={{ flex: 1, backgroundColor: "skyblue" }} />
-        <View style={{ flex: 1, backgroundColor: "steelblue" }} />
+        <View style={{ flex: 1, backgroundColor: "blue" }} />
+        <View style={{ flex: 1, backgroundColor: "red" }} />
+        <View style={{ flex: 1, backgroundColor: "green" }} />
         <Button
           onPress={() => this.goToRoute("userTurn")}
           block
@@ -127,15 +127,4 @@ class MainScreen extends Component {
 export default MainScreen;
 
 
-//Fill up an array with the selector for each iteration IE [0,1,1,2,2]
-//Then When its the users turn each div will have the same number attached to it as the selector
-//top will be 0, middle will be 1, bottom will be 2
-//Have a counter in the state set to 0
-// check the number corresponding to the div IE 0 for the top div
-// to the answerKey[counter]
-//if its the same do nothing, if its different notify the user they lost
-//increment the counter
-//if counter is greater than array length than that means the user has gotten them all right
-// show a YOU WON!!! notification at this time.
 
-//ask how to pass state to other component without rendering it
