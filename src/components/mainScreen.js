@@ -11,7 +11,9 @@ class MainScreen extends Component {
       bottom: false,
       answerKey: []
     };
+
     this.goToRoute = this.goToRoute.bind(this);
+    this.colorSwitchCounter = 1;
   }
 
   static route = {
@@ -21,10 +23,13 @@ class MainScreen extends Component {
   };
 
   componentDidMount() {
-    for (let i = 0; i < 5; i++) {
-      let selector = Math.floor(Math.random() * 3);
-      console.log(selector);
-      setTimeout(() => {
+    this.switchColorAnimation();
+  }
+
+  switchColorAnimation() {
+     setTimeout(() => {
+        console.log(this.colorSwitchCounter);
+        let selector = Math.floor(Math.random() * 3);
         if (selector === 0) {
           this.setState({
             top: true,
@@ -33,9 +38,7 @@ class MainScreen extends Component {
             answerKey: [...this.state.answerKey, selector]
           });
         }
-      }, 2000);
-      setTimeout(() => {
-        if (selector === 1) {
+        else if (selector === 1) {
           this.setState({
             top: false,
             middle: true,
@@ -43,9 +46,7 @@ class MainScreen extends Component {
             answerKey: [...this.state.answerKey, selector]
           });
         }
-      }, 2000);
-      setTimeout(() => {
-        if (selector === 2) {
+        else if (selector === 2) {
           this.setState({
             top: false,
             middle: false,
@@ -53,8 +54,11 @@ class MainScreen extends Component {
             answerKey: [...this.state.answerKey, selector]
           });
         }
-      }, 2000);
-    }
+        this.colorSwitchCounter++;
+        if (this.colorSwitchCounter < 5) {
+           this.switchColorAnimation();
+        }
+     }, 2000) // change this to fit your needs.
   }
 
   goToRoute(routeName) {
@@ -118,13 +122,10 @@ class MainScreen extends Component {
           info
           title="You're Turn"
         />
-        
+
       </View>
     );
   }
 }
 
 export default MainScreen;
-
-
-
