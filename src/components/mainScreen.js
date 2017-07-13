@@ -1,18 +1,13 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { StyleSheet, Text, View, Button, Animated } from "react-native";
-// import { Container, Content, Button } from "native-base";
+import {setAllFalse, setTopTrue, setMidTrue, setBotTrue, increaseDifficulty,resetAnswerKey} from '../actions/actions';
 
 import FadeInView from './fadeInView';
 class MainScreen extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      top: false,
-      middle: false,
-      bottom: false,
-      answerKey: [],
-      difficulty: 3
-    };
+    
 
     this.goToRoute = this.goToRoute.bind(this);
     this.colorSwitchCounter = 0;
@@ -20,11 +15,13 @@ class MainScreen extends Component {
 
   static route = {
     navigationBar: {
-      title: "Main"
+      title: "Main",
+       visible: false
     }
   };
 
   componentDidMount() {
+    this.props.dispatch(resetAnswerKey());
     this.switchColorAnimation();
   }
 
@@ -33,53 +30,29 @@ class MainScreen extends Component {
         // console.log(this.colorSwitchCounter);
         let selector = Math.floor(Math.random() * 3);
         console.log(selector)
-         this.setState({
-            top: false,
-            middle: false,
-            bottom: false
-          });
+         this.props.dispatch(setAllFalse(selector));
         if (selector === 0) {
-          this.setState({
-            top: true,
-            middle: false,
-            bottom: false,
-            answerKey: [...this.state.answerKey, selector]
-          });
+          this.props.dispatch(setTopTrue(selector));
         }
         else if (selector === 1) {
-          this.setState({
-            top: false,
-            middle: true,
-            bottom: false,
-            answerKey: [...this.state.answerKey, selector]
-          });
+          this.props.dispatch(setMidTrue(selector));
         }
         else if (selector === 2) {
-          this.setState({
-            top: false,
-            middle: false,
-            bottom: true,
-            answerKey: [...this.state.answerKey, selector]
-          });
+          this.props.dispatch(setBotTrue(selector));
         }
         
         this.colorSwitchCounter++;
-        if (this.colorSwitchCounter < this.state.difficulty) {
+        if (this.colorSwitchCounter < this.props.difficulty) {
           this.switchColorAnimation();
         }
         else {
           setTimeout(() => {
-            this.setState({
-            top: false,
-            middle: false,
-            bottom: false,
-            difficulty: this.state.difficulty + 1
-          });
-          console.log(this.state.difficulty)
+           this.props.dispatch(increaseDifficulty());
+          console.log('diffculty is', this.props.difficulty)
           
            setTimeout(() => {
-            this.props.navigator.push('userTurn', {answerKey: this.state.answerKey});
-           }, 500)
+            this.props.navigator.push('userTurn');
+           }, 300)
            
           }, 1000)
          
@@ -91,11 +64,11 @@ class MainScreen extends Component {
 // 
   goToRoute(routeName) {
     
-    console.log(this.state.answerKey)
+    console.log(this.props.answerKey)
   }
 
   render() {
-    if (this.state.top === true) {
+    if (this.props.top === true) {
       return (
         <View style={{ flex: 1 }}>
           <FadeInView style={{ flex: 1, backgroundColor: "#67BCDB" }} />
@@ -104,7 +77,7 @@ class MainScreen extends Component {
           
         </View>
       );
-    } else if (this.state.middle === true) {
+    } else if (this.props.middle === true) {
       return (
         <View style={{ flex: 1 }}>
           <View style={{ flex: 1, backgroundColor: "#67BCDB" }} />
@@ -113,7 +86,7 @@ class MainScreen extends Component {
          
         </View>
       );
-    } else if (this.state.bottom === true) {
+    } else if (this.props.bottom === true) {
       return (
         <View style={{ flex: 1 }}>
           <View style={{ flex: 1, backgroundColor: "#67BCDB" }} />
@@ -136,5 +109,13 @@ class MainScreen extends Component {
   }
 }
 
-export default MainScreen;
+const mapStateToProps = state => ({
+  top: state.top,
+  middle: state.middle,
+  bottom: state.bottom,
+  answerKey: state.answerKey,
+  difficulty: state.difficulty
+})
+
+export default connect(mapStateToProps)(MainScreen);
 
