@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Animated } from "react-native";
 // import { Container, Content, Button } from "native-base";
 
+import FadeInView from './fadeInView';
 class MainScreen extends Component {
   constructor(props) {
     super(props);
@@ -9,11 +10,12 @@ class MainScreen extends Component {
       top: false,
       middle: false,
       bottom: false,
-      answerKey: []
+      answerKey: [],
+      difficulty: 3
     };
 
     this.goToRoute = this.goToRoute.bind(this);
-    this.colorSwitchCounter = 1;
+    this.colorSwitchCounter = 0;
   }
 
   static route = {
@@ -28,8 +30,14 @@ class MainScreen extends Component {
 
   switchColorAnimation() {
      setTimeout(() => {
-        console.log(this.colorSwitchCounter);
+        // console.log(this.colorSwitchCounter);
         let selector = Math.floor(Math.random() * 3);
+        console.log(selector)
+         this.setState({
+            top: false,
+            middle: false,
+            bottom: false
+          });
         if (selector === 0) {
           this.setState({
             top: true,
@@ -54,15 +62,35 @@ class MainScreen extends Component {
             answerKey: [...this.state.answerKey, selector]
           });
         }
+        
         this.colorSwitchCounter++;
-        if (this.colorSwitchCounter < 5) {
-           this.switchColorAnimation();
+        if (this.colorSwitchCounter < this.state.difficulty) {
+          this.switchColorAnimation();
         }
-     }, 2000) // change this to fit your needs.
+        else {
+          setTimeout(() => {
+            this.setState({
+            top: false,
+            middle: false,
+            bottom: false,
+            difficulty: this.state.difficulty + 1
+          });
+          console.log(this.state.difficulty)
+          
+           setTimeout(() => {
+            this.props.navigator.push('userTurn', {answerKey: this.state.answerKey});
+           }, 500)
+           
+          }, 1000)
+         
+         
+         
+        }
+     }, 1000) // change this to fit your needs.
   }
-
+// 
   goToRoute(routeName) {
-    this.props.navigator.push(routeName, {answerKey: this.state.answerKey});
+    
     console.log(this.state.answerKey)
   }
 
@@ -70,58 +98,38 @@ class MainScreen extends Component {
     if (this.state.top === true) {
       return (
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 1, backgroundColor: "black" }} />
-          <View style={{ flex: 1, backgroundColor: "skyblue" }} />
-          <View style={{ flex: 1, backgroundColor: "steelblue" }} />
-          <Button
-            onPress={() => this.goToRoute("userTurn")}
-            block
-            info
-            title="You're Turn"
-          />
+          <FadeInView style={{ flex: 1, backgroundColor: "#67BCDB" }} />
+          <View style={{ flex: 1, backgroundColor: "#E44424" }} />
+          <View style={{ flex: 1, backgroundColor: "#A2AB58" }} />
+          
         </View>
       );
     } else if (this.state.middle === true) {
       return (
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 1, backgroundColor: "powderblue" }} />
-          <View style={{ flex: 1, backgroundColor: "black" }} />
-          <View style={{ flex: 1, backgroundColor: "steelblue" }} />
-          <Button
-            onPress={() => this.goToRoute("userTurn")}
-            block
-            info
-            title="You're Turn"
-          />
+          <View style={{ flex: 1, backgroundColor: "#67BCDB" }} />
+          <FadeInView style={{ flex: 1, backgroundColor: "#E44424" }} />
+          <View style={{ flex: 1, backgroundColor: "#A2AB58" }} />
+         
         </View>
       );
     } else if (this.state.bottom === true) {
       return (
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 1, backgroundColor: "powderblue" }} />
-          <View style={{ flex: 1, backgroundColor: "skyblue" }} />
-          <View style={{ flex: 1, backgroundColor: "black" }} />
-          <Button
-            onPress={() => this.goToRoute("userTurn")}
-            block
-            info
-            title="You're Turn"
-          />
+          <View style={{ flex: 1, backgroundColor: "#67BCDB" }} />
+          <View style={{ flex: 1, backgroundColor: "#E44424" }} />
+          <FadeInView style={{ flex: 1, backgroundColor: "#A2AB58" }} />
+          
         </View>
       );
     }
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, backgroundColor: "blue" }} />
-        <View style={{ flex: 1, backgroundColor: "red" }} />
-        <View style={{ flex: 1, backgroundColor: "green" }} />
-        <Button
-          onPress={() => this.goToRoute("userTurn")}
-          block
-          info
-          title="You're Turn"
-        />
+        <View style={{ flex: 1, backgroundColor: "#67BCDB" }} />
+        <View style={{ flex: 1, backgroundColor: "#E44424" }} />
+        <View style={{ flex: 1, backgroundColor: "#A2AB58" }} />
+        
 
       </View>
     );
@@ -129,3 +137,4 @@ class MainScreen extends Component {
 }
 
 export default MainScreen;
+

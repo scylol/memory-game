@@ -7,8 +7,7 @@ class UserTurnScreen extends Component {
     super(props);
     this.state = {
       index: 0,
-      failed: false,
-      testArray: [0, 0, 0, 0, 0]
+      failed: false
     };
     this.goToRoute = this.goToRoute.bind(this);
     this.topPressed = this.topPressed.bind(this);
@@ -32,7 +31,7 @@ class UserTurnScreen extends Component {
     console.log(this.state.index)
     //IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //this.props.route.params.answerKey
-    if (i !== this.state.testArray[this.state.index]) {
+    if (i !== this.props.route.params.answerKey[this.state.index]) {
       this.setState({ failed: true });
     }
     this.setState({ index: this.state.index + 1 });
@@ -40,7 +39,7 @@ class UserTurnScreen extends Component {
   midPressed() {
     console.log("mid pressed");
     let i = 1;
-    if (i !== this.state.testArray[this.state.index]) {
+    if (i !== this.props.route.params.answerKey[this.state.index]) {
       this.setState({ failed: true });
     }
     this.setState({ index: this.state.index + 1 });
@@ -48,7 +47,7 @@ class UserTurnScreen extends Component {
   botPressed() {
     console.log("bot pressed");
     let i = 2;
-    if (i !== this.state.testArray[this.state.index]) {
+    if (i !== this.props.route.params.answerKey[this.state.index]) {
       this.setState({ failed: true });
     }
     this.setState({ index: this.state.index + 1 });
@@ -69,15 +68,15 @@ class UserTurnScreen extends Component {
       );
     }
 
-    if (this.state.index === this.state.testArray.length) {
+    if (this.state.index === this.props.route.params.answerKey.length) {
       return (
         <View style={{ flex: 1 }}>
           <Text> Congrats!!! You Won!!!!!!!!! </Text>
           <Button
-            onPress={() => this.goToRoute("home")}
+            onPress={() => this.goToRoute("main")}
             block
             info
-            title="Home"
+            title="Next Level"
           />
         </View>
       );
@@ -85,15 +84,15 @@ class UserTurnScreen extends Component {
     return (
       <View style={{ flex: 1 }}>
         <TouchableOpacity
-          style={{ flex: 1, backgroundColor: "blue" }}
+          style={{ flex: 1, backgroundColor: "#67BCDB" }}
           onPress={this.topPressed}
         />
         <TouchableOpacity
-          style={{ flex: 1, backgroundColor: "red" }}
+          style={{ flex: 1, backgroundColor: "#E44424" }}
           onPress={this.midPressed}
         />
         <TouchableOpacity
-          style={{ flex: 1, backgroundColor: "green" }}
+          style={{ flex: 1, backgroundColor: "#A2AB58" }}
           onPress={this.botPressed}
         />
         <Button

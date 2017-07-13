@@ -11,7 +11,8 @@ class HomeScreen extends Component {
 
   static route = {
     navigationBar: {
-      title: "Home"
+      title: "Home",
+      visible: false
     }
   };
 
@@ -21,21 +22,49 @@ class HomeScreen extends Component {
 
   render() {
     return (
-      
-         <Button onPress={() => this.goToRoute("main")} block info title="Start" />
-       
+      <View style={styles.view}>
+      <Text style={styles.title}>Simone....The Simon Clone!</Text>
+      <Button color='#E44424'
+          onPress={() => this.goToRoute("main")}
+          block
+          info
+          title="Start"
+        />
+        <Text style={styles.instructions}>Are you ready to test your memory?
+        Watch very closely as each section lights up.
+        Your goal is to remember the order they lit up
+        in, then when it's your turn, you tap on the 
+        sections in the correct order. It starts out easy,
+        but gets harder everytime. Good Luck!
+        </Text>
+      </View>
     );
   }
 }
-
+//#A2AB58
 const styles = StyleSheet.create({
-  container: {
+  view: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: "#67BCDB",
+    padding: 25,
+    justifyContent: 'center'
+  },
+  title: {
+    color:'#FFFFFF',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 46,
+    paddingBottom: 25
+  
+  },
+  instructions: {
+    color:'#FFFFFF',
+    textAlign: 'center',
+    fontSize: 20,
+    paddingTop: 25
   }
+
+  
 });
 
 export default HomeScreen;
-
