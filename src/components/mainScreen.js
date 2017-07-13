@@ -54,7 +54,7 @@ class MainScreen extends Component {
             this.props.navigator.push('userTurn');
            }, 300)
            
-          }, 1000)
+          }, 700)
          
          
          
