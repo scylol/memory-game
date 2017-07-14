@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
-import {resetDifficulty} from '../actions/actions'
+import {increaseDifficulty, resetDifficulty} from '../actions/actions'
 
 class UserTurnScreen extends Component {
   constructor(props) {
@@ -23,6 +23,12 @@ class UserTurnScreen extends Component {
        visible: false
     }
   };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.dispatch(increaseDifficulty());
+    }, 500)
+   }
 
   goToRoute(routeName) {
     this.props.navigator.push(routeName);
@@ -58,12 +64,14 @@ class UserTurnScreen extends Component {
     this.setState({ index: this.state.index + 1 });
   }
 
+  
+
   render() {
     if (this.state.failed) {
       return (
         <View style={styles.view}>
           <Text style={styles.feedback}> You failed!!!</Text>
-          <Text style={styles.feedback}> You completed {this.difficulty-4} level(s)!</Text>
+          <Text style={styles.feedback}> You completed {this.difficulty-3} level(s)!</Text>
           <Button color='#E44424'
             onPress={() => this.goToRoute("home")}
             block

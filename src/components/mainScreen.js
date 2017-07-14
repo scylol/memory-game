@@ -9,7 +9,7 @@ class MainScreen extends Component {
     super(props);
     
 
-    this.goToRoute = this.goToRoute.bind(this);
+    
     this.colorSwitchCounter = 0;
   }
 
@@ -47,14 +47,13 @@ class MainScreen extends Component {
         }
         else {
           setTimeout(() => {
-           this.props.dispatch(increaseDifficulty());
-          console.log('diffculty is', this.props.difficulty)
+           this.props.dispatch(setAllFalse());
           
-           setTimeout(() => {
+          setTimeout(() => {
             this.props.navigator.push('userTurn');
-           }, 300)
+           }, 1000)
            
-          }, 700)
+          }, 1000)
          
          
          
@@ -62,16 +61,15 @@ class MainScreen extends Component {
      }, 1000) // change this to fit your needs.
   }
 // 
-  goToRoute(routeName) {
-    
-    console.log(this.props.answerKey)
-  }
+ 
 
   render() {
     if (this.props.top === true) {
       return (
         <View style={{ flex: 1 }}>
-          <FadeInView style={{ flex: 1, backgroundColor: "#67BCDB" }} />
+          <FadeInView style={{ flex: 1, backgroundColor: "#67BCDB" }}> 
+           <Text style={styles.currentLevel}>Level {this.props.difficulty-2}</Text>
+          </FadeInView>
           <View style={{ flex: 1, backgroundColor: "#E44424" }} />
           <View style={{ flex: 1, backgroundColor: "#A2AB58" }} />
           
@@ -80,7 +78,9 @@ class MainScreen extends Component {
     } else if (this.props.middle === true) {
       return (
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 1, backgroundColor: "#67BCDB" }} />
+          <View style={{ flex: 1, backgroundColor: "#67BCDB" }}> 
+          <Text style={styles.currentLevel}>Level {this.props.difficulty-2}</Text>
+          </View>
           <FadeInView style={{ flex: 1, backgroundColor: "#E44424" }} />
           <View style={{ flex: 1, backgroundColor: "#A2AB58" }} />
          
@@ -89,7 +89,9 @@ class MainScreen extends Component {
     } else if (this.props.bottom === true) {
       return (
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 1, backgroundColor: "#67BCDB" }} />
+          <View style={{ flex: 1, backgroundColor: "#67BCDB" }}>
+          <Text style={styles.currentLevel}>Level {this.props.difficulty-2}</Text>
+           </View>
           <View style={{ flex: 1, backgroundColor: "#E44424" }} />
           <FadeInView style={{ flex: 1, backgroundColor: "#A2AB58" }} />
           
@@ -99,7 +101,9 @@ class MainScreen extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, backgroundColor: "#67BCDB" }} />
+        <View style={{ flex: 1, backgroundColor: "#67BCDB" }}> 
+        <Text style={styles.currentLevel}>Level {this.props.difficulty-2}</Text>
+        </View>
         <View style={{ flex: 1, backgroundColor: "#E44424" }} />
         <View style={{ flex: 1, backgroundColor: "#A2AB58" }} />
         
@@ -108,6 +112,16 @@ class MainScreen extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  currentLevel: {
+    color:'#FFFFFF',
+    textAlign: 'center',
+    fontSize: 24,
+    paddingTop: 30,
+    fontWeight: 'bold'
+  }
+});
 
 const mapStateToProps = state => ({
   top: state.top,
