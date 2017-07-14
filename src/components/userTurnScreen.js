@@ -14,6 +14,7 @@ class UserTurnScreen extends Component {
     this.topPressed = this.topPressed.bind(this);
     this.midPressed = this.midPressed.bind(this);
     this.botPressed = this.botPressed.bind(this);
+    this.difficulty = this.props.difficulty;
   }
 
   static route = {
@@ -62,6 +63,7 @@ class UserTurnScreen extends Component {
       return (
         <View style={styles.view}>
           <Text style={styles.feedback}> You failed!!!</Text>
+          <Text style={styles.feedback}> You completed {this.difficulty-4} level(s)!</Text>
           <Button color='#E44424'
             onPress={() => this.goToRoute("home")}
             block
