@@ -21,5 +21,10 @@ Simone is a clone of the popular game Simon. Once you click the start button, yo
 React Native, React, Redux
 
 
+### How to Play
+
+Download the Expo App on your mobile phone, scan the barcode, and go have some fun!
+
+![simone code](https://user-images.githubusercontent.com/25944411/29190462-3fdaade8-7de8-11e7-9d5c-c5233960ae3f.png)
 
 
